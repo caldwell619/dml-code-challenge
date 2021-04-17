@@ -1,0 +1,11 @@
+{
+  "body": {
+    "emailAddress": "caldwell8814@gmail.com",
+    "password": "password1",
+    "userInformation": {
+      "role": "super-admin",
+      "firstName": "Christopher",
+      "lastName": "Caldwell"
+    }
+  }
+}

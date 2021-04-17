@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  dynamodb:
+    image: amazon/dynamodb-local:latest
+    ports:
+      - '8000:8000'
+    command: ['-jar', 'DynamoDBLocal.jar', '-sharedDb', '-inMemory']
+    logging:
+      driver: 'local'
+      options:
+        max-size: '1m'
+        max-file: '3'

@@ -1,0 +1,18 @@
+{
+  "name": "db",
+  "private": true,
+  "scripts": {
+    "seed:local": ". ../api/env/.env.local && ts-node scripts/seed/index.ts",
+    "start:db": ". ../api/env/.env.local && sh scripts/table-ops/init.sh",
+    "stop:db": "docker-compose down",
+    "scan": ". ../api/env/.env.local && sh scripts/table-ops/scan-table.sh"
+  },
+  "devDependencies": {
+    "@caldwell619/common-aws-actions": "^0.0.10",
+    "@types/node": "^14.0.24",
+    "aws-sdk": "^2.715.0",
+    "date-fns": "^2.15.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  }
+}

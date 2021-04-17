@@ -1,0 +1,12 @@
+{
+  "body": {
+    "emailAddress": "brookebrown0@gmail.com",
+    "password": "password1",
+    "userInformation": {
+      "role": "super-admin",
+      "firstName": "Brooke",
+      "lastName": "Clark",
+      "emailAddress": "brookebrown0@gmail.com"
+    }
+  }
+}

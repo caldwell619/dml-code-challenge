@@ -1,0 +1,171 @@
+service:
+  name: api
+
+frameworkVersion: '>=2.0.0'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${env:STAGE}
+  stackName: ${env:STACK_NAME}
+  memorySize: 128
+  apiName: ${env:API_NAME}
+  timeout: 20
+  logRetentionInDays: 14
+  deploymentBucket:
+    name: ${env:S3_BUCKET}
+  tracing:
+    apiGateway: true
+    lambda: true
+  environment:
+    STAGE: ${env:STAGE}
+    SECRET_ID: ${env:SECRET_ID}
+    MOCK_SIGNING_KEY: ${env:MOCK_SIGNING_KEY}
+    TARGET_SECRET_KEY_PROPERTY: ${env:TARGET_SECRET_KEY_PROPERTY}
+    TOKEN_DURATION: ${env:TOKEN_DURATION}
+    TABLE_NAME: ${env:TABLE_NAME}
+    PARTITION_KEY_NAME: ${env:PARTITION_KEY}
+    RANGE_KEY_NAME: ${env:RANGE_KEY}
+    GSI_1_NAME: ${env:GSI_1_NAME}
+    GSI_1_PARTITION_KEY_NAME: ${env:GSI_1_PARTITION_KEY}
+    GSI_1_RANGE_KEY_NAME: ${env:GSI_1_RANGE_KEY}
+    CORS_URL: ${env:CORS_URL}
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    useChildProcesses: true
+  webpack:
+    webpackConfig: 'webpack/webpack.${env:WEBPACK_CONFIG}.js'
+    packager: 'yarn'
+    keepOutputDirectory: true
+
+package:
+  individually: true
+
+functions:
+  GraphQL:
+    handler: lambdas/graphql-api/index.handler
+    name: MainGraphQL-${env:STAGE}
+    description: Main API
+    role: ReadWriteRole
+    events:
+      - http:
+          path: graphql
+          method: post
+          cors: true
+
+resources:
+  Description: API for DML Code Challenge
+  Resources:
+    ReadWriteRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: 'sts:AssumeRole'
+        Policies:
+          - PolicyName: GetItem
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Action:
+                    - dynamodb:GetItem
+                    - dynamodb:Query
+                    - dynamodb:PutItem
+                    - dynamodb:UpdateItem
+                    - dynamodb:DeleteItem
+                  Effect: Allow
+                  Resource:
+                    - !GetAtt Db.Arn
+                    - Fn::Join:
+                        - '/'
+                        - - !GetAtt Db.Arn
+                          - '*'
+                - Effect: Allow
+                  Action:
+                    - xray:PutTraceSegments
+                  Resource: '*'
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                  Resource: '*'
+    # DynamoDB
+    Db:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${env:TABLE_NAME}
+        AttributeDefinitions:
+          - AttributeName: ${env:PARTITION_KEY}
+            AttributeType: S
+          - AttributeName: ${env:RANGE_KEY}
+            AttributeType: S
+          - AttributeName: ${env:GSI_1_PARTITION_KEY}
+            AttributeType: S
+          - AttributeName: ${env:GSI_1_RANGE_KEY}
+            AttributeType: S
+        KeySchema:
+          - AttributeName: ${env:PARTITION_KEY}
+            KeyType: HASH
+          - AttributeName: ${env:RANGE_KEY}
+            KeyType: RANGE
+        GlobalSecondaryIndexes:
+          - IndexName: ${env:GSI_1_NAME}
+            KeySchema:
+              - AttributeName: ${env:GSI_1_PARTITION_KEY}
+                KeyType: 'HASH'
+              - AttributeName: ${env:GSI_1_RANGE_KEY}
+                KeyType: 'RANGE'
+            Projection:
+              ProjectionType: 'ALL'
+            ProvisionedThroughput:
+              ReadCapacityUnits: 5
+              WriteCapacityUnits: 5
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+
+  Outputs:
+    TableName:
+      Value: ${env:TABLE_NAME}
+      Description: Name of the Safire DynamoDb table
+      Export:
+        Name: SafireTableName-${env:STAGE}
+    PartitionKey:
+      Value: ${env:PARTITION_KEY}
+      Description: Partition key of the Safire DynamoDb table
+      Export:
+        Name: SafirePartitionKey-${env:STAGE}
+    RangeKey:
+      Value: ${env:RANGE_KEY}
+      Description: Range key of the Safire DynamoDb table
+      Export:
+        Name: SafireRangeKey-${env:STAGE}
+    GSI1Name:
+      Value: ${env:GSI_1_RANGE_KEY}
+      Description: Name of GSI 1 of the Safire DynamoDb table
+      Export:
+        Name: SafireGSI1Name-${env:STAGE}
+    GSI1PartitionKey:
+      Value: ${env:GSI_1_PARTITION_KEY}
+      Description: GSI 1 Partition key of the Safire DynamoDb table
+      Export:
+        Name: SafireGSI1PartitionKey-${env:STAGE}
+    GSI1RangeKey:
+      Value: ${env:GSI_1_RANGE_KEY}
+      Description: GSI 1 Range key of the Safire DynamoDb table
+      Export:
+        Name: SafireGSI1RangeKey-${env:STAGE}
+    TableArn:
+      Value: !GetAtt Db.Arn
+      Description: ARN of the Safire DynamoDb table
+      Export:
+        Name: SafireDbArn-${env:STAGE}
