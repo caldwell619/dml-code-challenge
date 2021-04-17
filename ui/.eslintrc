@@ -1,0 +1,25 @@
+{
+  "extends": [
+    "react-app",
+    "react-app/jest"
+  ],
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": 2,
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "tabWidth": 2,
+        "printWidth": 120,
+        "singleQuote": true,
+        "semi": false,
+        "arrowParens": "avoid",
+        "bracketSpacing": true,
+        "jsxSingleQuote": true
+      }
+    ]
+  }
+}
