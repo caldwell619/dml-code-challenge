@@ -7,5 +7,5 @@ module.exports = merge(common, {
   plugins: [
     // uncomment to see your bundle analysis
     // new BundleAnalyzerPlugin()
-  ],
+  ]
 })

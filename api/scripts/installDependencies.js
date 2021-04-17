@@ -39,7 +39,7 @@ const runCommandRecursive = (rootPath, targetFolder, commandToExecute, continueO
  */
 const parseArgs = () => {
   const argumentos = {}
-  process.argv.slice(2).map(element => {
+  process.argv.slice(2).forEach(element => {
     const matches = element.match('--([a-zA-Z0-9]+)=(.*)')
     if (matches) {
       argumentos[matches[1]] = matches[2].replace(/^['"]/, '').replace(/['"]$/, '')

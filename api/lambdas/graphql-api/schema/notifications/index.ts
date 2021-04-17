@@ -10,11 +10,11 @@ const NotificationSchema = `#graphql
 `
 
 export const NotificationsQueries = `#graphql
-	fetchNotifications: [Notification]
+fetchNotifications: [Notification]
 `
 
 export const NotificationsMutations = `#graphql
-	deleteNotification(id: String!): MutationResult
+deleteNotification(id: String!): MutationResult
 `
 
 export const NotificationsSchema = stitchSchema(NotificationSchema)

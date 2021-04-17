@@ -44,5 +44,5 @@ export const darkTheme: DefaultTheme = {
   secondaryTextColor: brandColor,
   primaryButtonColor: brandColor,
   secondaryButtonColor: 'black',
-  brandColor,
+  brandColor
 }

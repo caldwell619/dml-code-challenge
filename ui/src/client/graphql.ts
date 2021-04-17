@@ -12,7 +12,7 @@ export const runQuery = async <ReturnTypeOfQuery>(
 ) => {
   // @ts-ignore Overriding the private declaration of options - don't want to make a new class every request
   client.options.headers = {
-    Authorization: '',
+    Authorization: ''
   }
   try {
     return await client.request<ReturnTypeOfQuery>(query, variables)

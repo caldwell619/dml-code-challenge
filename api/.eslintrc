@@ -4,12 +4,15 @@
     "@typescript-eslint",
     "prettier"
   ],
+  "extends": [
+    "standard"
+  ],
   "rules": {
     // "@typescript-eslint/no-explicit-any": 2,
     "prettier/prettier": [
       "error",
       {
-        "trailingComma": "es5",
+        "trailingComma": "none",
         "tabWidth": 2,
         "printWidth": 120,
         "singleQuote": true,

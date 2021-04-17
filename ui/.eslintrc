@@ -1,17 +1,24 @@
 {
   "extends": [
     "react-app",
-    "react-app/jest"
+    "react-app/jest",
+    "standard",
+    "standard-jsx",
+    "standard-react"
   ],
   "plugins": [
     "prettier"
   ],
   "rules": {
     "@typescript-eslint/no-explicit-any": 2,
+    // This rule conflicts with TS only declarations such as types, and interfaces
+    "no-use-before-define": "off",
+    // This rule is not valid in React 17
+    "react/react-in-jsx-scope": "off",
     "prettier/prettier": [
       "error",
       {
-        "trailingComma": "es5",
+        "trailingComma": "none",
         "tabWidth": 2,
         "printWidth": 120,
         "singleQuote": true,

@@ -3,5 +3,5 @@ const common = require('./webpack.common.js')
 
 module.exports = merge(common, {
   mode: 'production',
-  externals: [/^aws-sdk[a-zA-Z/]/],
+  externals: [/^aws-sdk[a-zA-Z/]/]
 })

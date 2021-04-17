@@ -9,16 +9,16 @@ module.exports = {
   entry: serverlessWebpack.lib.entries,
   resolve: {
     alias: {
-      '@': path.resolve(process.cwd(), 'lambdas/'),
+      '@': path.resolve(process.cwd(), 'lambdas/')
     },
-    extensions: ['.js', '.json', '.ts'],
+    extensions: ['.js', '.json', '.ts']
   },
   target: 'node',
   plugins: [
     new webpack.IgnorePlugin({
       resourceRegExp: /^\.\/locale$/,
-      contextRegExp: /date-fns$/,
-    }),
+      contextRegExp: /date-fns$/
+    })
     // new BundleAnalyzerPlugin({
     //   analyzerMode: 'static',
     // }),
@@ -29,9 +29,9 @@ module.exports = {
         test: /\.ts(x?)$/,
         loader: 'ts-loader',
         options: {
-          transpileOnly: true,
-        },
-      },
-    ],
-  },
+          transpileOnly: true
+        }
+      }
+    ]
+  }
 }

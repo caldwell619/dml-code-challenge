@@ -2,7 +2,7 @@ import NodeCache from 'node-cache'
 
 export const Cache = new NodeCache({
   stdTTL: 300, // 5m
-  useClones: false,
+  useClones: false
 })
 
 const setToInMemoryCache = <Payload>(key: string, payload?: Payload): void => {
