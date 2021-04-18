@@ -4,5 +4,5 @@ export const blue = '#2a9df4'
 export const disabledColor = '#707070'
 export const errorColor = '#e04141'
 
-export const brandColor = '#f7a305'
-export const brandColorSecondary = '#0e2748'
+export const brandColor = '#1DB954'
+export const brandColorSecondary = '#191414'

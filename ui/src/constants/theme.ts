@@ -11,9 +11,11 @@ export const GlobalStyle = createGlobalStyle`
   }
   * {
     color: ${({ theme }) => theme.primaryTextColor};
+    font-family: 'Proxima Nova';
   }
   a {
-    color: ${({ theme }) => theme.primaryTextColor};
+    color: ${({ theme }) => theme.brandColor};
+    text-decoration: none;
   }
 `
 

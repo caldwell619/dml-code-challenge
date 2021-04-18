@@ -1,3 +1,5 @@
 export * from './button'
 export * from './colors'
 export * from './text'
+export * from './navBar'
+export * from './fonts'

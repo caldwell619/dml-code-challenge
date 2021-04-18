@@ -15,6 +15,11 @@
     "no-use-before-define": "off",
     // This rule is not valid in React 17
     "react/react-in-jsx-scope": "off",
+    // TypeScript does this for you
+    "react/prop-types": "off",
+    // Prettier conflicts
+    "multiline-ternary": "off",
+    "space-before-function-paren": "off",
     "prettier/prettier": [
       "error",
       {

@@ -1,30 +1,20 @@
-import { DocumentNode } from 'graphql'
+// import { DocumentNode } from 'graphql'
 import { GraphQLClient } from 'graphql-request'
+import { Variables } from 'graphql-request/dist/types'
 
 import { GRAPHQL_ENDPOINT as uri } from 'constants/index'
 
 const client = new GraphQLClient(uri, { headers: { Authorization: '' } })
 
+/** Runs a request to the GraphQL API */
 export const runQuery = async <ReturnTypeOfQuery>(
-  query: DocumentNode,
-  variables: Variables = {},
-  onUnauthorized: (error: Error) => void = () => {}
-) => {
-  // @ts-ignore Overriding the private declaration of options - don't want to make a new class every request
-  client.options.headers = {
-    Authorization: ''
-  }
-  try {
-    return await client.request<ReturnTypeOfQuery>(query, variables)
-  } catch (error) {
-    if (error.response.status === 403) {
-      onUnauthorized(error)
-    } else {
-      throw error
-    }
-  }
-}
-
-interface Variables {
-  [key: string]: string | number | boolean | string[] | number[] | boolean[]
+  query: string,
+  variables: Variables = {}
+): Promise<ReturnTypeOfQuery> => {
+  const res = await client.rawRequest<Record<string, ReturnTypeOfQuery>, Variables>(query, variables)
+  if (res.errors) throw res.errors
+  // GraphQL request returns an object with a single key ( the name of the query ). This returns that key
+  const keyOfReturn = Object.keys(res.data || {})[0]
+  if (!res.data?.[keyOfReturn]) throw new Error('Key is not correctly structured on return')
+  return res.data?.[keyOfReturn]
 }

@@ -3,13 +3,14 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ThemeProvider } from 'styled-components'
 
 import { GlobalStyle, darkTheme } from 'constants/theme'
-import Router from 'router/Router'
+import Router from 'router'
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: false,
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 10 // 10m
     }
   }
 })

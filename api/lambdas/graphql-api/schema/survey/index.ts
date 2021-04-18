@@ -16,7 +16,7 @@ fetchSurvey(emailAddress: String!, surveyId: String!): Survey
 `
 
 export const SurveysMutations = `#graphql
-createSurvey(firstName: String!, lastName: String!, emailAddress: String!): MutationResult
+createSurvey(firstName: String!, lastName: String!, emailAddress: String!): Survey
 saveSurveyResponse(emailAddress: String!, surveyId: String!, answer: String!): MutationResult
 `
 
