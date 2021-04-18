@@ -5,7 +5,7 @@
     "install-dependencies": "node scripts/installDependencies.js",
     "refresh-types": "node scripts/installDependencies.js --filePath='lambdas' --command='yarn refresh-types' --continueOnError=true",
     "lint": "eslint --ext .js,.ts .",
-    "format": "prettier --write webpack",
+    "format": "prettier --write lambdas",
     "start": ". env/.env.local && serverless offline --httpPort 5000",
     "deploy:dev": ". env/.env.dev && serverless deploy",
     "clean:dev": ". env/.env.dev && serverless remove"

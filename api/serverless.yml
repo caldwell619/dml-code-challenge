@@ -52,6 +52,8 @@ functions:
     name: MainGraphQL-${env:STAGE}
     description: Main API
     role: ReadWriteRole
+    environment:
+      APPLICATION_URL: ${env:APPLICATION_URL}
     events:
       - http:
           path: graphql

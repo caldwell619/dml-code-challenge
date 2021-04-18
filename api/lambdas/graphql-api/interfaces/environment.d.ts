@@ -10,6 +10,7 @@ declare global {
       GSI_1_PARTITION_KEY_NAME: string
       GSI_1_RANGE_KEY_NAME: string
       CORS_URL: string
+      APPLICATION_URL: string
     }
   }
 }
