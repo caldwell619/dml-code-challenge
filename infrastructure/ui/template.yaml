@@ -1,0 +1,69 @@
+Transform: 'AWS::Serverless-2016-10-31'
+
+Parameters:
+  Stage:
+    Type: String
+  UiDeploymentBucket:
+    Type: String
+    Description: Command used to run the build for the specified environment
+
+Resources:
+
+  UiHostBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref UiDeploymentBucket
+      VersioningConfiguration:
+        Status: Enabled
+        
+  CloudFrontOriginIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: "origin identity"
+    
+  UiDistribution:
+    DependsOn: CloudFrontOriginIdentity
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        CustomErrorResponses:
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+        Origins:
+          - DomainName: !GetAtt UiHostBucket.DomainName
+            Id: !Ref UiHostBucket
+            S3OriginConfig:
+              OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${CloudFrontOriginIdentity}"
+        Enabled: true
+        DefaultRootObject: index.html
+        DefaultCacheBehavior:
+          ForwardedValues:
+            QueryString: False
+          TargetOriginId: !Ref UiHostBucket
+          ViewerProtocolPolicy: redirect-to-https
+        PriceClass: PriceClass_100
+        ViewerCertificate:
+          CloudFrontDefaultCertificate: true
+
+  UiBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref UiHostBucket
+      PolicyDocument:
+        Id: MyPolicy
+        Version: 2012-10-17
+        Statement:
+          - Sid: PublicReadForGetBucketObjects
+            Effect: Allow
+            Principal:
+              CanonicalUser: !GetAtt CloudFrontOriginIdentity.S3CanonicalUserId
+            Action: 's3:GetObject'
+            Resource: 
+              - !GetAtt UiHostBucket.Arn
+              - !Sub ${UiHostBucket.Arn}/*
+  

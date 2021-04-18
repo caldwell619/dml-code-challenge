@@ -1,0 +1,15 @@
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Infrastructure build bucket
+
+Parameters:
+  BucketName:
+    Type: String
+  Stage:
+    Type: String
+
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Sub ${BucketName}-${Stage}

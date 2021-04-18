@@ -1,0 +1,12 @@
+{
+  "name": "shared-types",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "sh scripts/build.sh"
+  },
+  "main": "dist/",
+  "files": [
+    "dist/"
+  ],
+  "private": true
+}
