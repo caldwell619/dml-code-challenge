@@ -1,6 +1,7 @@
 import { buildSchema } from 'graphql'
 
 import { stitchSchema } from '@/graphql-api/util/helpers'
+
 import { MutationResultSchema } from './shared'
 import { SurveysSchema, SurveysQueries, SurveysMutations } from './survey'
 
