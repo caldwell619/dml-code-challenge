@@ -1,8 +1,10 @@
 import { useState, ChangeEventHandler, Dispatch, SetStateAction } from 'react'
 
 /** Returns the state value, the bind, the setter, and resetter in an array */
-export const useInput = (initialValue: string): UseInputHook => {
+export const useInput = (initialValue: string, validationRegex?: RegExp): UseInputHook => {
   const [value, setValue] = useState(initialValue)
+
+  const doesPass = validationRegex ? validationRegex.test(value) : undefined
 
   return [
     value,
@@ -14,7 +16,8 @@ export const useInput = (initialValue: string): UseInputHook => {
     },
     {
       setValue,
-      resetValue: () => setValue('')
+      resetValue: () => setValue(''),
+      doesPass
     }
   ]
 }
@@ -27,5 +30,5 @@ export interface UseInputBind {
 export type UseInputHook = [
   string,
   UseInputBind,
-  { setValue: Dispatch<SetStateAction<string>>; resetValue: () => void }
+  { setValue: Dispatch<SetStateAction<string>>; resetValue: () => void; doesPass?: boolean }
 ]

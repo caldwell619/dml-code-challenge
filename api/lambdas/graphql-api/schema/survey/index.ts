@@ -7,6 +7,8 @@ const SurveySchema = `#graphql
     question: String!
     answerChoices: [String]!
     answer: String
+    firstName: String!
+    lastName: String!
   }
 `
 

@@ -7,10 +7,15 @@ const searchPadding = '2%'
 
 interface SearchContainerProps {
   isFocused: boolean
+  isError?: boolean
 }
 export const Container = styled(FlexContainer)<SearchContainerProps>`
   justify-content: flex-start;
-  border: 1px solid ${({ theme, isFocused }) => (isFocused ? theme.brandColor : '#ffffff80')};
+  border: 1px solid
+    ${({ theme, isFocused, isError }) => {
+      if (isError) return errorColor
+      return isFocused ? theme.brandColor : '#ffffff80'
+    }};
   border-radius: 10px;
   padding: ${searchPadding};
   width: 100%;
@@ -40,4 +45,8 @@ interface HelperTextProps {
 }
 export const HelperText = styled.p<HelperTextProps>`
   color: ${({ theme, isError }) => (isError ? errorColor : theme.primaryTextColor)};
+  font-size: 0.8em;
+  margin-top: 1%;
+  width: 100%;
+  height: 10px;
 `

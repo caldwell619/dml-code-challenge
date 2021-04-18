@@ -5,11 +5,15 @@ import { UseInputBind } from 'hooks/useInput'
 import { Container, Input as InputElement, InputContainer, IconContainer, HelperText } from './elements'
 import { FlexContainer } from '..'
 
-export const Input: FC<Props> = ({ inputBind = {}, Icon, placeholder, inputRef, helperText }: Props) => {
+export const Input: FC<Props> = ({ inputBind = {}, Icon, placeholder, inputRef, helperText, onFocus = () => {} }) => {
   const [isFocused, setIsFocused] = useState(false)
+  const handleOnFocus = () => {
+    setIsFocused(true)
+    onFocus()
+  }
   return (
     <FlexContainer width='100%' direction='column'>
-      <Container isFocused={isFocused}>
+      <Container isError={helperText?.isError} isFocused={isFocused}>
         {Icon ? (
           <IconContainer>
             <Icon isFocused={isFocused} />
@@ -20,12 +24,12 @@ export const Input: FC<Props> = ({ inputBind = {}, Icon, placeholder, inputRef, 
             ref={inputRef}
             placeholder={placeholder || ''}
             {...inputBind}
-            onFocus={() => setIsFocused(true)}
+            onFocus={handleOnFocus}
             onBlur={() => setIsFocused(false)}
           />
         </InputContainer>
       </Container>
-      <HelperText isError={helperText?.isError}>{helperText ? helperText.text : ''}</HelperText>
+      <HelperText isError={helperText?.isError}>{helperText?.text || ''}</HelperText>
     </FlexContainer>
   )
 }
@@ -39,4 +43,5 @@ interface Props {
   placeholder?: string
   Icon?: FunctionComponent<{ isFocused: boolean }>
   inputRef?: MutableRefObject<HTMLInputElement | null>
+  onFocus?: () => void
 }

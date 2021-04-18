@@ -23,7 +23,7 @@ const ViewSurveys: FC = () => {
   return (
     <>
       {surveys.map(survey => (
-        <div key={survey.id}>{survey.id}</div>
+        <div key={survey.id}>{survey.link}</div>
       ))}
     </>
   )
