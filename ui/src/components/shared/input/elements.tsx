@@ -19,6 +19,7 @@ export const Container = styled(FlexContainer)<SearchContainerProps>`
   border-radius: 10px;
   padding: ${searchPadding};
   width: 100%;
+  background-color: ${({ theme }) => theme.primaryBackgroundColor};
 `
 
 export const IconContainer = styled(FlexContainer)`
@@ -33,7 +34,7 @@ export const InputContainer = styled.div<InputContainerProps>`
 `
 
 export const Input = styled.input`
-  width: 100%;
+  width: 90%;
   border: none;
   padding: 2%;
   outline: none;

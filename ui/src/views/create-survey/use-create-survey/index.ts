@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query'
 
 import { runQuery } from 'client/graphql'
+import { surveyCacheKey } from 'constants/cacheKeys'
 
 import { createSurveyMutation } from './mutations'
 
@@ -10,7 +11,7 @@ export const useCreateSurvey = () => {
     variables => createSurveyRunner(variables),
     {
       onSuccess() {
-        queryCache.invalidateQueries([''])
+        queryCache.invalidateQueries([surveyCacheKey])
       }
     }
   )

@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.21.1",
+    "fuse.js": "^6.4.6",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "graphql.macro": "^1.4.2",
