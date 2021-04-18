@@ -2,6 +2,7 @@
 export enum Routes {
   Home = '/home',
   Surveys = '/surveys',
-  CreateSurvey = '/create-survey'
+  CreateSurvey = '/create-survey',
+  RespondToSurvey = '/respond-to-survey'
 }
 /* eslint-enable no-unused-vars */
