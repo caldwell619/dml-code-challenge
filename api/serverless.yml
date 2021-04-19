@@ -55,6 +55,36 @@ functions:
           path: graphql
           method: post
           cors: true
+  FetchSurveys:
+    handler: lambdas/fetch-surveys/index.handler
+    name: DmlChallengeFetchSurveys-${env:STAGE}
+    description: Fetches surveys
+    role: ReadWriteRole
+    events:
+      - http:
+          path: survey
+          method: get
+          cors: true
+  FetchSurveys:
+    handler: lambdas/create-survey/index.handler
+    name: DmlChallengeCreateSurvey-${env:STAGE}
+    description: Creates the survey for the first time
+    role: ReadWriteRole
+    events:
+      - http:
+          path: survey
+          method: post
+          cors: true
+  SaveSurveyAnswer:
+    handler: lambdas/save-survey-answer/index.handler
+    name: DmlChallengeSaveSurveyAnswer-${env:STAGE}
+    description: Records the answer the user has given
+    role: ReadWriteRole
+    events:
+      - http:
+          path: survey
+          method: put
+          cors: true
 
 resources:
   Description: API for DML Code Challenge

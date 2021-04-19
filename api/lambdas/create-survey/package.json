@@ -1,0 +1,15 @@
+{
+  "name": "main-api",
+  "private": true,
+  "scripts": {
+    "refresh-types": "yarn add -D ../../../shared-types"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.722.0",
+    "shared-types": "../../../shared-types",
+    "typescript": "^4.0.3"
+  },
+  "dependencies": {
+    "@caldwell619/common-aws-actions": "^0.0.10"
+  }
+}
