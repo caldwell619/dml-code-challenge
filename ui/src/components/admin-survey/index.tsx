@@ -1,7 +1,9 @@
 import { FC, useState, useMemo } from 'react'
+import styled from 'styled-components'
 import { Survey } from 'shared-types'
 import format from 'date-fns/format'
 
+import { mobileBreakpoint } from 'constants/styles'
 import { Toast, FlexContainer, DividerBlock } from 'components/shared'
 import XIcon from 'components/svg/X'
 import CopyIcon from 'components/svg/Copy'
@@ -36,14 +38,14 @@ const AdminSurvey: FC<Props> = ({ firstName, lastName, question, answer, lastUpd
         <td aria-label='Link:' onClick={() => handleCopy(link)}>
           <div>
             <CopyIcon />
+            <Toast isShown={isShown} setIsShown={setIsShown}>
+              <FlexContainer height='100%'>Copied to clipboard</FlexContainer>
+            </Toast>
           </div>
         </td>
-        <td>
+        <LastCell>
           <DividerBlock />
-          <Toast isShown={isShown} setIsShown={setIsShown}>
-            <FlexContainer height='100%'>Copied to clipboard</FlexContainer>
-          </Toast>
-        </td>
+        </LastCell>
       </tr>
     </>
   )
@@ -68,3 +70,9 @@ const copyToClipBoard = (textToCopy: string) => {
   document.execCommand('copy')
   tempInput.remove()
 }
+
+const LastCell = styled.td`
+  @media screen and (min-width: ${mobileBreakpoint}) {
+    display: none;
+  }
+`

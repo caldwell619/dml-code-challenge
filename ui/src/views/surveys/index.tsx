@@ -10,7 +10,7 @@ import SearchIcon from 'components/svg/Search'
 import Survey from 'components/admin-survey'
 import { useInput } from 'hooks/useInput'
 
-import { CenteredContainer, Table, SearchContainer, FilterContainer } from './elements'
+import { CenteredContainer, Table, SearchContainer, FilterContainer, HeaderOptions } from './elements'
 import { useFetchSurveys } from './use-fetch-surveys'
 
 const ViewSurveys: FC = () => {
@@ -57,17 +57,19 @@ const ViewSurveys: FC = () => {
 
   return (
     <Layout>
-      <SearchContainer>
-        <Input placeholder='Search by name, email or question' Icon={SearchIcon} inputBind={searchTermBind} />
-      </SearchContainer>
-      <FilterContainer onClick={() => updateFilter('shouldHideAnswered')}>
-        <Checkbox isChecked={filters.shouldHideAnswered} />
-        <div>Hide Answered</div>
-      </FilterContainer>
-      <FilterContainer onClick={() => updateFilter('shouldHideNotAnswered')}>
-        <Checkbox isChecked={filters.shouldHideNotAnswered} />
-        <div>Hide Not Answered</div>
-      </FilterContainer>
+      <HeaderOptions>
+        <SearchContainer>
+          <Input placeholder='Search by name, email or question' Icon={SearchIcon} inputBind={searchTermBind} />
+        </SearchContainer>
+        <FilterContainer onClick={() => updateFilter('shouldHideAnswered')}>
+          <Checkbox isChecked={filters.shouldHideAnswered} />
+          <div>Hide Answered</div>
+        </FilterContainer>
+        <FilterContainer onClick={() => updateFilter('shouldHideNotAnswered')}>
+          <Checkbox isChecked={filters.shouldHideNotAnswered} />
+          <div>Hide Not Answered</div>
+        </FilterContainer>
+      </HeaderOptions>
       <DividerBlock />
       <Table>
         <thead>
@@ -76,6 +78,7 @@ const ViewSurveys: FC = () => {
             <th>Last Name</th>
             <th>Question</th>
             <th>Answer</th>
+            <th>Last Updated</th>
             <th>Link</th>
           </tr>
         </thead>
