@@ -3,14 +3,19 @@ import { query, getItem, putItem, updateItem } from '@caldwell619/common-aws-act
 
 import { gsiName, tableName } from '@/graphql-api/constants'
 import { Resolver, MutationResult } from '@/graphql-api/interfaces'
+import { createCacheKey, useCaching, invalidateCache } from '@/graphql-api/util/caching'
 
 import { surveyBaseKey } from './constants'
 import { FetchSurveyArgs, CreateSurveyArgs, SaveSurveyResponseArgs } from './interfaces'
 import { generateSurveyKey, generateFirstTimeSurvey } from './helpers'
 
+const surveyCacheKey = 'surveys'
 /** Fetches all surveys */
 export const fetchSurveys: Resolver<Survey[]> = () =>
-  query<Survey[]>({ partitionKeySearchTerm: surveyBaseKey, indexToQuery: gsiName })
+  useCaching(
+    async () => query<Survey[]>({ partitionKeySearchTerm: surveyBaseKey, indexToQuery: gsiName }),
+    createCacheKey(surveyCacheKey, {})
+  )
 
 /** Fetches a single survey */
 export const fetchSurvey: Resolver<Survey, FetchSurveyArgs> = async ({ emailAddress, surveyId }) =>
@@ -20,6 +25,7 @@ export const fetchSurvey: Resolver<Survey, FetchSurveyArgs> = async ({ emailAddr
 export const createSurvey: Resolver<Survey, CreateSurveyArgs> = async variables => {
   const survey = generateFirstTimeSurvey(variables)
   await putItem(survey)
+  invalidateCache(surveyCacheKey)
   return survey
 }
 
@@ -52,6 +58,7 @@ export const saveSurveyResponse: Resolver<MutationResult, SaveSurveyResponseArgs
       newValueOfProperty: Date.now()
     })
   ])
+  invalidateCache(surveyCacheKey)
   return {
     message: 'Done',
     status: 200
