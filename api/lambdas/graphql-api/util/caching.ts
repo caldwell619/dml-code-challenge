@@ -6,12 +6,10 @@ export const Cache = new NodeCache({
 })
 
 const setToInMemoryCache = <Payload>(key: string, payload?: Payload): void => {
-  console.log('setting', key)
   Cache.set(key, JSON.stringify(payload))
 }
 
 const getFromInMemoryCache = <ReturnType>(key: string): ReturnType | undefined => {
-  console.log('getting', key)
   const stringifiedItems = Cache.get<string>(key)
   return stringifiedItems ? JSON.parse(stringifiedItems) : undefined
 }

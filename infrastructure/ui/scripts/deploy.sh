@@ -26,14 +26,6 @@ sam deploy \
   --parameter-overrides \
       Stage=$STAGE \
       UiDeploymentBucket=$NAME_OF_DEPLOYMENT_BUCKET
-      # NameOfBuildArtifact=$NAME_OF_BUILD_ARTIFACT \
-      # S3Bucket=$S3_BUCKET \
-			# CloudFrontDistributionId=$CLOUD_FRONT_DISTRIBUTION_ID \
-      # BranchToRunBuildFrom=$BRANCH_TO_RUN_BUILD_FROM \
-      # RepositoryUrl=$REPOSITORY_URL \
-			# RepositoryName=$REPOSITORY_NAME \
-			# ImageTag=$IMAGE_TAG \
-			# BuildCommand=$BUILD_COMMAND
 
 
 if [ $? == 0 ]
