@@ -65,7 +65,7 @@ functions:
           path: survey
           method: get
           cors: true
-  FetchSurveys:
+  CreateSurvey:
     handler: lambdas/create-survey/index.handler
     name: DmlChallengeCreateSurvey-${env:STAGE}
     description: Creates the survey for the first time
@@ -76,9 +76,9 @@ functions:
           method: post
           cors: true
   SaveSurveyAnswer:
-    handler: lambdas/save-survey-answer/index.handler
-    name: DmlChallengeSaveSurveyAnswer-${env:STAGE}
-    description: Records the answer the user has given
+    handler: lambdas/save-survey-response/index.handler
+    name: DmlChallengeSaveSurveyResponse-${env:STAGE}
+    description: Records the response the user has given
     role: ReadWriteRole
     events:
       - http:

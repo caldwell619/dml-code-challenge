@@ -27,29 +27,3 @@ export const Container = styled.div`
     width: 70%;
   }
 `
-
-interface AnswerOptionProps {
-  isChecked: boolean
-}
-export const AnswerOption = styled.div<AnswerOptionProps>`
-  margin: 10% 0;
-  font-size: 1.1em;
-  display: flex;
-  align-items: center;
-  @media screen and (min-width: ${mobileBreakpoint}) {
-    width: 70%;
-  }
-  input {
-    opacity: 0;
-  }
-  label {
-    background-color: ${({ theme, isChecked }) => (isChecked ? theme.brandColor : '#e1e1e1')};
-    border-radius: 50%;
-    height: 12px;
-    width: 12px;
-  }
-
-  span {
-    margin-left: 20px;
-  }
-`

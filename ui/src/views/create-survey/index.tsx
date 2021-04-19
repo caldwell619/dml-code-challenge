@@ -1,20 +1,20 @@
 import { FC, useState, useCallback } from 'react'
 import { useHistory, Redirect } from 'react-router-dom'
 
-import { Input, MobileActionButton, FlexContainer, LoadingSpinner, Layout } from 'components/shared'
+import { Input, MobileActionButton, LoadingSpinner, Layout } from 'components/shared'
+import AnswerOptions from 'components/create-survey/answer-options'
+import PlusIcon from 'components/svg/Plus'
+import { maxNumberOfAnswers } from 'constants/index'
 import { useInput } from 'hooks/useInput'
 import { Routes } from 'router/routes'
-import PlusIcon from 'components/svg/Plus'
-import DeleteIcon from 'components/svg/Delete'
-import { handleRouteCreation } from 'utils'
+import { handleErrorRouteCreation } from 'utils'
 
-import { Container, AnswerOptionList, AnswerOptionTitle, Form } from './elements'
-
+import { Container, Form } from './elements'
 import { useCreateSurvey } from './use-create-survey'
+
 const validNameRegex = /^[A-Za-z'-]{2,}$/
 const validQuestionRegex = /^[\S\s]*$/
 const validEmailRegex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i
-const maxNumberOfAnswers = 4
 
 const CreateSurvey: FC = () => {
   const { push } = useHistory()
@@ -65,7 +65,7 @@ const CreateSurvey: FC = () => {
     })
   }, [])
 
-  if (isError) return <Redirect to={handleRouteCreation(true)} />
+  if (isError) return <Redirect to={handleErrorRouteCreation(true)} />
 
   return (
     <Layout>
@@ -120,19 +120,7 @@ const CreateSurvey: FC = () => {
             isDisabled={answerChoices.length === maxNumberOfAnswers}
           />
         </Form>
-        <AnswerOptionTitle>
-          Answer Options ( {answerChoices.length} / {maxNumberOfAnswers} )
-        </AnswerOptionTitle>
-        <AnswerOptionList>
-          {answerChoices.map((option, index) => (
-            <li key={option}>
-              <FlexContainer justify='space-between'>
-                <div>{option}</div>
-                <DeleteIcon onClick={() => handleDeleteAnswerOption(index)} />
-              </FlexContainer>
-            </li>
-          ))}
-        </AnswerOptionList>
+        <AnswerOptions answerChoices={answerChoices} handleDeleteAnswerOption={handleDeleteAnswerOption} />
         <MobileActionButton disabled={!allConditionsMet} isLoading={isLoading} onClick={handleActionClick}>
           {isLoading ? <LoadingSpinner /> : 'Create Survey'}
         </MobileActionButton>

@@ -2,13 +2,12 @@ import { FC, useState } from 'react'
 import { useHistory, Redirect } from 'react-router-dom'
 import { parse } from 'query-string'
 
-import { Layout, MobileActionButton, PageLoading, LoadingSpinner, FlexContainer } from 'components/shared'
-import { Routes } from 'router/routes'
+import { Layout, MobileActionButton, PageLoading, LoadingSpinner, FlexContainer, RadioButton } from 'components/shared'
 import { CenteredContainer } from 'views/surveys/elements'
-import { handleRouteCreation } from 'utils'
+import { handleErrorRouteCreation } from 'utils'
 
 import { useFetchSurvey } from './useFetchSurvey'
-import { QuestionContainer, AnswerOption, Container, PromptContainer } from './elements'
+import { QuestionContainer, Container, PromptContainer } from './elements'
 
 const RespondToSurvey: FC = () => {
   const [selectedAnswer, setSelectedAnswer] = useState('')
@@ -27,9 +26,15 @@ const RespondToSurvey: FC = () => {
     surveyId
   })
 
+  /** Sends the mutation to answer the survey */
   const handleAnswerSurvey = async () => {
-    await respondToPost({ answer: selectedAnswer, emailAddress, surveyId })
-    push(`${Routes.ResponseConfirmation}?status=${isRespondError ? 'failure' : 'success'}`)
+    try {
+      await respondToPost({ answer: selectedAnswer, emailAddress, surveyId })
+    } catch (error) {
+      // empty on purpose, `isRespondError` will have the proper value to determine what the result will be.
+    } finally {
+      push(handleErrorRouteCreation(isRespondError))
+    }
   }
 
   if (isFetchSurveyLoading) {
@@ -41,7 +46,7 @@ const RespondToSurvey: FC = () => {
   }
 
   // API returns error, then send to error page
-  if (isFetchingError) return <Redirect to={handleRouteCreation(true)} />
+  if (isFetchingError) return <Redirect to={handleErrorRouteCreation(true)} />
 
   return (
     <Layout>
@@ -54,12 +59,13 @@ const RespondToSurvey: FC = () => {
           </PromptContainer>
           <QuestionContainer>{survey?.question}</QuestionContainer>
           {survey?.answerChoices.map(choice => (
-            <AnswerOption isChecked={choice === selectedAnswer} key={choice}>
-              <label htmlFor='question' onClick={() => setSelectedAnswer(choice)}>
-                <input type='radio' value={choice} name='question' />
-              </label>
-              <span onClick={() => setSelectedAnswer(choice)}>{choice}</span>
-            </AnswerOption>
+            <RadioButton
+              isChecked={choice === selectedAnswer}
+              key={choice}
+              onClick={() => setSelectedAnswer(choice)}
+              label={choice}
+              htmlFor='question'
+            />
           ))}
           <MobileActionButton onClick={handleAnswerSurvey} disabled={selectedAnswer === ''}>
             {isRespondToSurveyLoading ? <LoadingSpinner /> : 'Submit'}
