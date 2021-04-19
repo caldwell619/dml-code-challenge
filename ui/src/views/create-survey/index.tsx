@@ -1,7 +1,7 @@
 import { FC, useState, useCallback } from 'react'
 import { useHistory, Redirect } from 'react-router-dom'
 
-import { Input, MobileActionButton, LoadingSpinner, Layout } from 'components/shared'
+import { Input, FixedActionButton, LoadingSpinner, Layout } from 'components/shared'
 import AnswerOptions from 'components/create-survey/answer-options'
 import PlusIcon from 'components/svg/Plus'
 import { maxNumberOfAnswers } from 'constants/index'
@@ -123,9 +123,9 @@ const CreateSurvey: FC = () => {
           </Form>
         </InputWrapper>
         <AnswerOptions answerChoices={answerChoices} handleDeleteAnswerOption={handleDeleteAnswerOption} />
-        <MobileActionButton disabled={!allConditionsMet} isLoading={isLoading} onClick={handleActionClick}>
+        <FixedActionButton disabled={!allConditionsMet} isLoading={isLoading} onClick={handleActionClick}>
           {isLoading ? <LoadingSpinner /> : 'Create Survey'}
-        </MobileActionButton>
+        </FixedActionButton>
       </Container>
     </Layout>
   )

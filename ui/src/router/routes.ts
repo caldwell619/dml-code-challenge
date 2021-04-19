@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */ // This ESLint config is not cohesive with TS, please excuse the disable
 /** The paths that the app has access to. Rather than passing strings around, this enum consolidates all usage of route paths */
 export enum Routes {
-  Home = '/home',
+  Home = '/',
   Surveys = '/surveys',
   CreateSurvey = '/create-survey',
   RespondToSurvey = '/respond-to-survey',

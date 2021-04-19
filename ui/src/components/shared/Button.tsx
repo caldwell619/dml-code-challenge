@@ -2,11 +2,25 @@ import styled from 'styled-components'
 
 import { brandColor, mobileBreakpoint, desktopBreakpoint } from 'constants/styles'
 
-interface MobileActionButtonProps {
+export const Button = styled.button<FixedActionButtonProps>`
+  margin: 0 auto;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: ${({ disabled }) => (disabled ? 'gray' : brandColor)};
+  padding: 3%;
+  width: 100%;
+  font-size: 1.1em;
+  font-weight: bolder;
+  box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+`
+
+interface FixedActionButtonProps {
   isFlexContainer?: boolean
   isLoading?: boolean
 }
-export const MobileActionButton = styled.button<MobileActionButtonProps>`
+export const FixedActionButton = styled.button<FixedActionButtonProps>`
   position: fixed;
   bottom: 30px;
   left: 10px;

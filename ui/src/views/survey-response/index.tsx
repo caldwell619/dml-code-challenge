@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import { useHistory, Redirect } from 'react-router-dom'
 import { parse } from 'query-string'
 
-import { Layout, MobileActionButton, PageLoading, LoadingSpinner, FlexContainer, RadioButton } from 'components/shared'
+import { Layout, FixedActionButton, PageLoading, LoadingSpinner, FlexContainer, RadioButton } from 'components/shared'
 import { CenteredContainer } from 'views/surveys/elements'
 import { handleErrorRouteCreation } from 'utils'
 
@@ -67,9 +67,9 @@ const RespondToSurvey: FC = () => {
               htmlFor='question'
             />
           ))}
-          <MobileActionButton onClick={handleAnswerSurvey} disabled={selectedAnswer === ''}>
+          <FixedActionButton onClick={handleAnswerSurvey} disabled={selectedAnswer === ''}>
             {isRespondToSurveyLoading ? <LoadingSpinner /> : 'Submit'}
-          </MobileActionButton>
+          </FixedActionButton>
         </Container>
       </FlexContainer>
     </Layout>
