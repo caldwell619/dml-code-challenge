@@ -19,7 +19,7 @@ export const LinkContainer = styled(NavLink)`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30%;
+  width: 25%;
   @media screen and (min-width: ${mobileBreakpoint}) {
     width: 15%;
   }
@@ -29,5 +29,8 @@ export const LinkContainer = styled(NavLink)`
 
 export const HttpLogo = styled.div`
   position: absolute;
-  right: 20px;
+  right: 0;
+  @media screen and (min-width: ${mobileBreakpoint}) {
+    right: 20px;
+  }
 `

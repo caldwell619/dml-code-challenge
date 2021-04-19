@@ -4,7 +4,7 @@ import { FlexContainer } from 'components/shared'
 import DeleteIcon from 'components/svg/Delete'
 import { maxNumberOfAnswers } from 'constants/index'
 
-import { AnswerOptionList, AnswerOptionTitle } from './elements'
+import { AnswerOptionList, AnswerOptionTitle, AnswerOptionText } from './elements'
 
 const AnswerOptions: FC<Props> = ({ answerChoices, handleDeleteAnswerOption }) => {
   return (
@@ -29,7 +29,7 @@ const AnswerOptions: FC<Props> = ({ answerChoices, handleDeleteAnswerOption }) =
 const AnswerChoice: FC<AnswerChoiceProps> = ({ option, handleDeleteAnswerOption, index }) => (
   <li>
     <FlexContainer justify='space-between'>
-      <div>{option}</div>
+      <AnswerOptionText>{option}</AnswerOptionText>
       <DeleteIcon onClick={() => handleDeleteAnswerOption(index)} />
     </FlexContainer>
   </li>

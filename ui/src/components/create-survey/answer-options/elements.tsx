@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { mobileBreakpoint } from 'constants/styles'
+import { ellipsis, mobileBreakpoint } from 'constants/styles'
 
 export const AnswerOptionList = styled.ol`
   width: 90%;
@@ -12,8 +12,14 @@ export const AnswerOptionList = styled.ol`
   & li {
     margin: 3% 0;
   }
+  padding-bottom: 20vh;
 `
 
 export const AnswerOptionTitle = styled.h3`
   margin-bottom: 1%;
+`
+
+export const AnswerOptionText = styled.h3`
+  ${ellipsis}
+  width: 90%;
 `
