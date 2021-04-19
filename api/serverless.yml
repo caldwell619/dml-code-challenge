@@ -69,6 +69,8 @@ functions:
     handler: lambdas/create-survey/index.handler
     name: DmlChallengeCreateSurvey-${env:STAGE}
     description: Creates the survey for the first time
+    environment:
+      APPLICATION_URL: ${env:APPLICATION_URL}
     role: ReadWriteRole
     events:
       - http:

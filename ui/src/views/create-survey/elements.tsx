@@ -9,7 +9,9 @@ export const Container = styled(FlexContainer)`
   padding: 2%;
   & > div {
     width: 100%;
-    height: 100%;
+    @media screen and (min-width: ${mobileBreakpoint}) {
+      height: 100%;
+    }
   }
 `
 
