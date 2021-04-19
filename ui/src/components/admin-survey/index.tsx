@@ -36,12 +36,12 @@ const AdminSurvey: FC<Props> = ({ firstName, lastName, question, answer, lastUpd
           <div>{formattedDate}</div>
         </td>
         <td aria-label='Link:' onClick={() => handleCopy(link)}>
-          <div>
+          <CopyContainer>
             <CopyIcon />
             <Toast isShown={isShown} setIsShown={setIsShown}>
               <FlexContainer height='100%'>Copied to clipboard</FlexContainer>
             </Toast>
-          </div>
+          </CopyContainer>
         </td>
         <LastCell>
           <DividerBlock />
@@ -74,5 +74,10 @@ const copyToClipBoard = (textToCopy: string) => {
 const LastCell = styled.td`
   @media screen and (min-width: ${mobileBreakpoint}) {
     display: none;
+  }
+`
+const CopyContainer = styled.div`
+  & svg {
+    cursor: pointer;
   }
 `

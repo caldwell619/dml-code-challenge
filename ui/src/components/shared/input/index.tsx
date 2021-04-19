@@ -1,4 +1,4 @@
-import React, { FC, FunctionComponent, MutableRefObject, useState } from 'react'
+import { FC, useEffect, FunctionComponent, MutableRefObject, useState } from 'react'
 
 import { UseInputBind } from 'hooks/useInput'
 
@@ -12,9 +12,16 @@ export const Input: FC<Props> = ({
   inputRef,
   helperText,
   onFocus = () => {},
-  onIconClick = () => {}
+  onIconClick = () => {},
+  isDisabled
 }) => {
   const [isFocused, setIsFocused] = useState(false)
+
+  useEffect(() => {
+    if (isDisabled === undefined) return
+    if (isDisabled) setIsFocused(false)
+  }, [isDisabled])
+
   const handleOnFocus = () => {
     setIsFocused(true)
     onFocus()
@@ -29,6 +36,7 @@ export const Input: FC<Props> = ({
         ) : null}
         <InputContainer>
           <InputElement
+            disabled={isDisabled}
             ref={inputRef}
             placeholder={placeholder || ''}
             {...inputBind}
@@ -53,4 +61,5 @@ interface Props {
   inputRef?: MutableRefObject<HTMLInputElement | null>
   onFocus?: () => void
   onIconClick?: () => void
+  isDisabled?: boolean
 }

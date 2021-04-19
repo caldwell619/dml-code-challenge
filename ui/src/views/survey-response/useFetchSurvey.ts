@@ -11,7 +11,7 @@ export const useFetchSurvey = (variables: FetchSurveyArgs) => {
   const queryClient = useQueryClient()
   const { emailAddress, surveyId } = variables
 
-  const { data: survey = null, isError: isFetchingError, isFetching: isFetchSurveyLoading } = useQuery<Survey>(
+  const { data: survey = undefined, isError: isFetchingError, isFetching: isFetchSurveyLoading } = useQuery<Survey>(
     [surveyCacheKey, emailAddress, surveyId],
     () => runQuery<Survey>(fetchSurveyQuery, variables)
   )

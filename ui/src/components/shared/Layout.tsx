@@ -1,8 +1,13 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 
+import { mobileBreakpoint } from 'constants/styles'
+
 export const PageLayout = styled.div`
   padding: 3%;
+  @media screen and (min-width: ${mobileBreakpoint}) {
+    padding: 1% 3%;
+  }
 `
 
 export const PageTitle = styled.h1`

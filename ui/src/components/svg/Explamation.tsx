@@ -1,8 +1,11 @@
 import { FC } from 'react'
+import styled from 'styled-components'
+
+import { mobileBreakpoint } from 'constants/styles'
 
 const ExclamationPoint: FC<Props> = ({ width = '140px', color = 'yellow' }) => {
   return (
-    <svg width={width} x='0px' y='0px' viewBox='0 0 197.143 197.143'>
+    <StyledSvg width={width} x='0px' y='0px' viewBox='0 0 197.143 197.143'>
       <g>
         <g>
           <path
@@ -16,10 +19,16 @@ const ExclamationPoint: FC<Props> = ({ width = '140px', color = 'yellow' }) => {
           />
         </g>
       </g>
-    </svg>
+    </StyledSvg>
   )
 }
 
+const StyledSvg = styled.svg`
+  width: ${({ width = '20px' }) => width};
+  @media screen and (min-width: ${mobileBreakpoint}) {
+    width: ${({ width = '20px' }) => `calc(${width} * 1.3)`};
+  }
+`
 interface Props {
   color?: string
   width?: string

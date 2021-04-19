@@ -17,14 +17,14 @@ const ResponseConfirmation: FC = () => {
     <FlexContainer height='70vh' direction='column'>
       {status === 'success' ? (
         <>
-          <CheckIcon width='20%' />
+          <CheckIcon width='70px' />
           <Title>Thank you!</Title>
           <Subtitle>Your response has been recorded.</Subtitle>
           <Subtitle>If you would ever like to change your response, feel free to use this link again.</Subtitle>
         </>
       ) : (
         <>
-          <ExclamationIcon width='20%' />
+          <ExclamationIcon width='70px' />
           <Title>Oops</Title>
           <Subtitle>Something went wrong.</Subtitle>
           <Subtitle>If this issue continues, please reach out to someone on the team.</Subtitle>

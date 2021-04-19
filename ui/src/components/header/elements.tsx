@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 
 import { FlexContainer } from 'components/shared'
-import { navBarHeight } from 'constants/styles'
+import { navBarHeight, mobileBreakpoint } from 'constants/styles'
 
 export const HeaderContainer = styled(FlexContainer)`
   position: sticky;
@@ -20,6 +20,9 @@ export const LinkContainer = styled(NavLink)`
   align-items: center;
   justify-content: center;
   width: 30%;
+  @media screen and (min-width: ${mobileBreakpoint}) {
+    width: 20%;
+  }
   cursor: pointer;
   color: ${({ theme }) => theme.primaryTextColor};
 `

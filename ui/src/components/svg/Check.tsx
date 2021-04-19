@@ -1,6 +1,8 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 
+import { mobileBreakpoint } from 'constants/styles'
+
 const Check: FC<Props> = ({ width }) => {
   return (
     <CheckSvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52' width={width}>
@@ -22,6 +24,9 @@ const CheckSvg = styled.svg<Props>`
   stroke-miterlimit: 11;
   box-shadow: inset 0px 0px 0px #7ac142;
   animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+  @media screen and (min-width: ${mobileBreakpoint}) {
+    width: ${({ width = '20px' }) => `calc(${width} * 1.3)`};
+  }
   .checkmark__circle {
     stroke-dasharray: 166;
     stroke-dashoffset: 166;

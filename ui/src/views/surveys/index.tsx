@@ -1,5 +1,5 @@
 import { FC, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import Fuse from 'fuse.js'
 import { Survey as ISurvey } from 'shared-types'
 
@@ -9,6 +9,7 @@ import EmptyTank from 'components/svg/EmptyTank'
 import SearchIcon from 'components/svg/Search'
 import Survey from 'components/admin-survey'
 import { useInput } from 'hooks/useInput'
+import { handleRouteCreation } from 'utils'
 
 import { CenteredContainer, Table, SearchContainer, FilterContainer, HeaderOptions } from './elements'
 import { useFetchSurveys } from './use-fetch-surveys'
@@ -16,7 +17,7 @@ import { useFetchSurveys } from './use-fetch-surveys'
 const ViewSurveys: FC = () => {
   const [searchTerm, searchTermBind] = useInput('')
   const [filters, setFilters] = useState<Filters>({ shouldHideAnswered: false, shouldHideNotAnswered: false })
-  const { surveys, isLoading } = useFetchSurveys()
+  const { surveys, isLoading, isError } = useFetchSurveys()
 
   const SurveySearch = useMemo(
     () => new Fuse(surveys, { keys: ['firstName', 'lastName', 'emailAddress', 'question'], includeScore: true }),
@@ -54,6 +55,8 @@ const ViewSurveys: FC = () => {
     searchTerm !== ''
       ? handleSearchResults(SurveySearch, searchTerm, filters)
       : handleFiltersWithoutSearch(surveys, filters)
+
+  if (isError) return <Redirect to={handleRouteCreation(true)} />
 
   return (
     <Layout>

@@ -23,6 +23,7 @@ export const CenteredContainer = styled(FlexContainer)`
 export const FilterContainer = styled(FlexContainer)`
   justify-content: flex-start;
   margin: 5% 0;
+  cursor: pointer;
   & > div {
     margin-right: 5%;
   }
@@ -30,7 +31,7 @@ export const FilterContainer = styled(FlexContainer)`
     margin: 1.5% 0;
     width: 20% !important;
     & > div {
-      margin-right: 2%;
+      margin-right: 4%;
     }
   }
 `

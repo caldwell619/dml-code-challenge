@@ -1,11 +1,12 @@
 import { FC, useState, useCallback } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Redirect } from 'react-router-dom'
 
 import { Input, MobileActionButton, FlexContainer, LoadingSpinner, Layout } from 'components/shared'
 import { useInput } from 'hooks/useInput'
 import { Routes } from 'router/routes'
 import PlusIcon from 'components/svg/Plus'
 import DeleteIcon from 'components/svg/Delete'
+import { handleRouteCreation } from 'utils'
 
 import { Container, AnswerOptionList, AnswerOptionTitle, Form } from './elements'
 
@@ -27,17 +28,18 @@ const CreateSurvey: FC = () => {
     '',
     validQuestionRegex
   )
-  const { createSurvey, isLoading } = useCreateSurvey()
+  const { createSurvey, isLoading, isError } = useCreateSurvey()
+
+  const allConditionsMet =
+    doesFirstNamePass &&
+    doesLastNamePass &&
+    doesEmailPass &&
+    doesQuestionPass &&
+    answerChoices.length === maxNumberOfAnswers
 
   const handleActionClick = async () => {
     setHasSubmitted(true)
-    if (
-      doesFirstNamePass &&
-      doesLastNamePass &&
-      doesEmailPass &&
-      doesQuestionPass &&
-      answerChoices.length === maxNumberOfAnswers
-    ) {
+    if (allConditionsMet) {
       await createSurvey({ firstName, lastName, emailAddress, question, answerChoices })
       push(Routes.Surveys)
     }
@@ -62,6 +64,8 @@ const CreateSurvey: FC = () => {
       return mutableOptions
     })
   }, [])
+
+  if (isError) return <Redirect to={handleRouteCreation(true)} />
 
   return (
     <Layout>
@@ -113,6 +117,7 @@ const CreateSurvey: FC = () => {
             placeholder='Answer Option'
             Icon={PlusIcon}
             onIconClick={addAnswerOption}
+            isDisabled={answerChoices.length === maxNumberOfAnswers}
           />
         </Form>
         <AnswerOptionTitle>
@@ -128,7 +133,7 @@ const CreateSurvey: FC = () => {
             </li>
           ))}
         </AnswerOptionList>
-        <MobileActionButton isLoading={isLoading} onClick={handleActionClick}>
+        <MobileActionButton disabled={!allConditionsMet} isLoading={isLoading} onClick={handleActionClick}>
           {isLoading ? <LoadingSpinner /> : 'Create Survey'}
         </MobileActionButton>
       </Container>
