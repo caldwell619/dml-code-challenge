@@ -9,12 +9,12 @@ import { surveyBaseKey } from './constants'
 import { FetchSurveyArgs, CreateSurveyArgs, SaveSurveyResponseArgs } from './interfaces'
 import { generateSurveyKey, generateFirstTimeSurvey } from './helpers'
 
-const surveyCacheKey = 'surveys'
+const surveyCacheKey = createCacheKey('surveys', {})
 /** Fetches all surveys */
 export const fetchSurveys: Resolver<Survey[]> = () =>
   useCaching(
     async () => query<Survey[]>({ partitionKeySearchTerm: surveyBaseKey, indexToQuery: gsiName }),
-    createCacheKey(surveyCacheKey, {})
+    surveyCacheKey
   )
 
 /** Fetches a single survey */

@@ -9,8 +9,18 @@ export const AnswerOptionList = styled.ol`
   @media screen and (min-width: ${mobileBreakpoint}) {
     width: 50%;
   }
+  & svg {
+    cursor: pointer;
+    & * {
+      cursor: pointer;
+    }
+  }
   & li {
     margin: 3% 0;
+
+    & h3 {
+      margin: 0;
+    }
   }
   padding-bottom: 20vh;
 `
