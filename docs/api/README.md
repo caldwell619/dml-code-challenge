@@ -32,6 +32,6 @@ If the data is not in the cache, it will execute the callback you provide, then 
 
 The downside here is that if you update something in the cache, there is **no guarantee you will be in the same Lambda that has it cached**. This is why infrequent writes are great for this. You also cannot change this cache from outside the Lambda such as some micro-service or cron schedule.
 
-## Rest
+## REST
 
 I am fully aware that not following simple directions in a code challenge is a recipe for disaster. I know you guys are not using GraphQL, so I made the same functionality with the traditional REST style API. I hope this is okay, I didn't want to just fly off and make something you didn't ask for.

@@ -19,7 +19,7 @@ This strategy is very flexible and vague on purpose. It can be used to fit a wid
 
 _You'll need Docker to run Dynamo locally._
 
-In [dynamo/]('../../dynamo), run `yarn start:db`.
+In [dynamo/](../../dynamo), run `yarn start:db`.
 
 This launches the Dynamo image, and creates a table with the proper keys. The endpoint is exposed over the network bridge on port `8000`.
 
