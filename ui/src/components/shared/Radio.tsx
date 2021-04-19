@@ -5,11 +5,11 @@ import { mobileBreakpoint } from 'constants/styles'
 
 export const RadioButton: FC<Props> = ({ htmlFor, onClick, isChecked, value, label }) => {
   return (
-    <RadioOption isChecked={isChecked}>
-      <label htmlFor={htmlFor} onClick={onClick}>
-        <input type='radio' value={value} name='question' />
+    <RadioOption isChecked={isChecked} onClick={onClick}>
+      <label htmlFor={htmlFor}>
+        <input type='radio' value={value} name={htmlFor} />
       </label>
-      <span onClick={onClick}>{label}</span>
+      <span>{label}</span>
     </RadioOption>
   )
 }
@@ -22,7 +22,12 @@ const RadioOption = styled.div<RadioOptionProps>`
   font-size: 1.1em;
   display: flex;
   align-items: center;
+  cursor: pointer;
+  & * {
+    cursor: pointer;
+  }
   @media screen and (min-width: ${mobileBreakpoint}) {
+    margin: 4% 0;
     width: 70%;
   }
   input {

@@ -12,6 +12,7 @@ export const LogoText = styled.h2`
 export const LogoContainer = styled(FlexContainer)`
   flex-direction: column;
   width: 65%;
+  cursor: pointer;
   @media screen and (min-width: ${mobileBreakpoint}) {
     width: 35%;
   }

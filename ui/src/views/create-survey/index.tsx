@@ -9,7 +9,7 @@ import { useInput } from 'hooks/useInput'
 import { Routes } from 'router/routes'
 import { handleErrorRouteCreation } from 'utils'
 
-import { Container, Form } from './elements'
+import { Container, Form, InputWrapper } from './elements'
 import { useCreateSurvey } from './use-create-survey'
 
 const validNameRegex = /^[A-Za-z'-]{2,}$/
@@ -70,56 +70,58 @@ const CreateSurvey: FC = () => {
   return (
     <Layout>
       <Container>
-        <Input
-          inputBind={firstNameBind}
-          placeholder='First Name'
-          helperText={{
-            isError: hasSubmitted && !doesFirstNamePass,
-            text: hasSubmitted && !doesFirstNamePass ? 'Not a valid name' : ''
-          }}
-          onFocus={resetHasSubmitted}
-        />
-        <Input
-          inputBind={lastNameBind}
-          placeholder='Last Name'
-          helperText={{
-            isError: hasSubmitted && !doesLastNamePass,
-            text: hasSubmitted && !doesLastNamePass ? 'Not a valid name' : ''
-          }}
-          onFocus={resetHasSubmitted}
-        />
-        <Input
-          inputBind={emailAddressBind}
-          placeholder='Email Address'
-          helperText={{
-            isError: hasSubmitted && !doesEmailPass,
-            text: hasSubmitted && !doesEmailPass ? 'Not a valid email' : ''
-          }}
-          onFocus={resetHasSubmitted}
-        />
-        <Input
-          inputBind={questionToAskBind}
-          placeholder='Question to Ask'
-          helperText={{
-            isError: hasSubmitted && !doesQuestionPass,
-            text: hasSubmitted && !doesQuestionPass ? 'Not a valid question' : ''
-          }}
-          onFocus={resetHasSubmitted}
-        />
-        <Form
-          onSubmit={e => {
-            e.preventDefault()
-            addAnswerOption()
-          }}
-        >
+        <InputWrapper>
           <Input
-            inputBind={answerOptionBind}
-            placeholder='Answer Option'
-            Icon={PlusIcon}
-            onIconClick={addAnswerOption}
-            isDisabled={answerChoices.length === maxNumberOfAnswers}
+            inputBind={firstNameBind}
+            placeholder='First Name'
+            helperText={{
+              isError: hasSubmitted && !doesFirstNamePass,
+              text: hasSubmitted && !doesFirstNamePass ? 'Not a valid name' : ''
+            }}
+            onFocus={resetHasSubmitted}
           />
-        </Form>
+          <Input
+            inputBind={lastNameBind}
+            placeholder='Last Name'
+            helperText={{
+              isError: hasSubmitted && !doesLastNamePass,
+              text: hasSubmitted && !doesLastNamePass ? 'Not a valid name' : ''
+            }}
+            onFocus={resetHasSubmitted}
+          />
+          <Input
+            inputBind={emailAddressBind}
+            placeholder='Email Address'
+            helperText={{
+              isError: hasSubmitted && !doesEmailPass,
+              text: hasSubmitted && !doesEmailPass ? 'Not a valid email' : ''
+            }}
+            onFocus={resetHasSubmitted}
+          />
+          <Input
+            inputBind={questionToAskBind}
+            placeholder='Question to Ask'
+            helperText={{
+              isError: hasSubmitted && !doesQuestionPass,
+              text: hasSubmitted && !doesQuestionPass ? 'Not a valid question' : ''
+            }}
+            onFocus={resetHasSubmitted}
+          />
+          <Form
+            onSubmit={e => {
+              e.preventDefault()
+              addAnswerOption()
+            }}
+          >
+            <Input
+              inputBind={answerOptionBind}
+              placeholder='Answer Option'
+              Icon={PlusIcon}
+              onIconClick={addAnswerOption}
+              isDisabled={answerChoices.length === maxNumberOfAnswers}
+            />
+          </Form>
+        </InputWrapper>
         <AnswerOptions answerChoices={answerChoices} handleDeleteAnswerOption={handleDeleteAnswerOption} />
         <MobileActionButton disabled={!allConditionsMet} isLoading={isLoading} onClick={handleActionClick}>
           {isLoading ? <LoadingSpinner /> : 'Create Survey'}

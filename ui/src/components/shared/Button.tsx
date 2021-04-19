@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { brandColor, mobileBreakpoint } from 'constants/styles'
+import { brandColor, mobileBreakpoint, desktopBreakpoint } from 'constants/styles'
 
 interface MobileActionButtonProps {
   isFlexContainer?: boolean
@@ -21,6 +21,10 @@ export const MobileActionButton = styled.button<MobileActionButtonProps>`
   @media screen and (min-width: ${mobileBreakpoint}) {
     padding: ${({ isLoading }) => (isLoading ? '1%' : '1.5%')};
     width: 40%;
+  }
+  @media screen and (min-width: ${desktopBreakpoint}) {
+    padding: ${({ isLoading }) => (isLoading ? '0.5%' : '1%')};
+    width: 20%;
   }
   font-size: 1.1em;
   font-weight: bolder;

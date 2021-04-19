@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { errorColor } from 'constants/styles'
+import { errorColor, desktopBreakpoint } from 'constants/styles'
 import { FlexContainer } from 'components/shared'
 
 const searchPadding = '2%'
@@ -41,6 +41,9 @@ export const Input = styled.input`
   width: 90%;
   border: none;
   padding: 2%;
+  @media screen and (min-width: ${desktopBreakpoint}) {
+    padding: 3%;
+  }
   outline: none;
   background-color: ${({ theme }) => theme.primaryBackgroundColor};
 `

@@ -30,6 +30,9 @@ export const LinkContainer = styled(NavLink)`
 export const HttpLogo = styled.div`
   position: absolute;
   right: 0;
+  & svg {
+    transform: scale(0.6);
+  }
   @media screen and (min-width: ${mobileBreakpoint}) {
     right: 20px;
   }
