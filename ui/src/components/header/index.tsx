@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { Routes } from 'router/routes'
+import { Routes, userRoutes } from 'router/routes'
 
 import { HeaderContainer, LinkContainer } from './elements'
 // Combining styled components and sass modules due to the limitations of the library.
@@ -10,7 +10,7 @@ import style from './index.module.sass'
 
 const Header: FC = () => {
   const { location } = useHistory()
-  const isUserRoute = location.pathname === Routes.RespondToSurvey
+  const isUserRoute = userRoutes[location.pathname as Routes]
   return (
     <HeaderContainer>
       {isUserRoute ? null : (

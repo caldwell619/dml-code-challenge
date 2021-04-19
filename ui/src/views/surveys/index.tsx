@@ -19,7 +19,7 @@ const ViewSurveys: FC = () => {
   const { surveys, isLoading } = useFetchSurveys()
 
   const SurveySearch = useMemo(
-    () => new Fuse(surveys, { keys: ['firstName', 'lastName', 'emailAddress'], includeScore: true }),
+    () => new Fuse(surveys, { keys: ['firstName', 'lastName', 'emailAddress', 'question'], includeScore: true }),
     [surveys]
   )
 
@@ -31,8 +31,21 @@ const ViewSurveys: FC = () => {
     )
   }
 
+  /** Handles the application of filters for the surveys.
+   *
+   * If an update would turn both filters to `true`, this turns the opposite filter to false before updating the incoming filter
+   */
   const updateFilter = (targetFilter: keyof Filters): void => {
-    setFilters(currentFilters => ({ ...currentFilters, [targetFilter]: !currentFilters[targetFilter] }))
+    setFilters(currentFilters => {
+      const newValue = !currentFilters[targetFilter]
+      const oppositeFilterKey = filterOppositeKeyMap[targetFilter]
+      // Checking to see if both filters would be enabled
+      if (newValue && currentFilters[oppositeFilterKey]) {
+        // If both enabled, turn the opposite of the one being updated to false.
+        return ({ [filterOppositeKeyMap[targetFilter]]: false, [targetFilter]: newValue } as unknown) as Filters
+      }
+      return { ...currentFilters, [targetFilter]: !currentFilters[targetFilter] }
+    })
   }
 
   if (!surveys.length) return EmptySurveyResponse
@@ -45,7 +58,7 @@ const ViewSurveys: FC = () => {
   return (
     <Layout>
       <SearchContainer>
-        <Input Icon={SearchIcon} inputBind={searchTermBind} />
+        <Input placeholder='Search by name, email or question' Icon={SearchIcon} inputBind={searchTermBind} />
       </SearchContainer>
       <FilterContainer onClick={() => updateFilter('shouldHideAnswered')}>
         <Checkbox isChecked={filters.shouldHideAnswered} />
@@ -112,6 +125,14 @@ const handleFiltersWithoutSearch: FilterSurveys = (surveys, { shouldHideAnswered
     results.push(survey)
   }
   return results
+}
+
+/** Map holding the opposite of each filter. This is to toggle the other, if both are enabled.
+ * The alternative would be to allow the user to filter both answered, and non answered which doesn't seem to be of any use.
+ * */
+const filterOppositeKeyMap: Record<keyof Filters, keyof Filters> = {
+  shouldHideAnswered: 'shouldHideNotAnswered',
+  shouldHideNotAnswered: 'shouldHideAnswered'
 }
 
 interface Filters {

@@ -38,7 +38,7 @@ export const Table = styled.table`
 
     td::before {
       content: attr(aria-label);
-      width: 30%;
+      width: 35%;
     }
   }
 `

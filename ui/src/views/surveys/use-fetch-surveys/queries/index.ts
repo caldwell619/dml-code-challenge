@@ -7,6 +7,7 @@ export const fetchSurveysQuery = gql`
       link
       firstName
       lastName
+      lastUpdated
       question
       answer
     }

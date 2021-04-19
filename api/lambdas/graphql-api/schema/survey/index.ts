@@ -9,6 +9,7 @@ const SurveySchema = `#graphql
     answer: String
     firstName: String!
     lastName: String!
+    lastUpdated: Float!
   }
 `
 

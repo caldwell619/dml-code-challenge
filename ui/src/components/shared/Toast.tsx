@@ -29,6 +29,7 @@ const Container = styled.div<ContainerProps>`
   height: 50px;
   width: 250px;
   bottom: 12px;
+  padding-left: 20px;
   transition: all 0.6s ease-in-out;
   background-color: ${({ theme }) => theme.brandColor};
   right: ${({ isShown }) => (isShown ? '12px' : '-1000px')};
