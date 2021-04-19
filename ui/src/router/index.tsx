@@ -9,6 +9,7 @@ const Home = lazy(() => import('views/home'))
 const Surveys = lazy(() => import('views/surveys'))
 const CreateSurvey = lazy(() => import('views/create-survey'))
 const RespondToSurvey = lazy(() => import('views/survey-response'))
+const ResponseConfirmation = lazy(() => import('views/response-confirmation'))
 
 const Router: FC = () => {
   return (
@@ -16,6 +17,7 @@ const Router: FC = () => {
       <Header />
       <Suspense fallback={<span />}>
         <Switch>
+          <Route path={Routes.ResponseConfirmation} component={ResponseConfirmation} />
           <Route path={Routes.RespondToSurvey} component={RespondToSurvey} />
           <Route path={Routes.CreateSurvey} component={CreateSurvey} />
           <Route path={Routes.Surveys} component={Surveys} />

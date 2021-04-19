@@ -11,23 +11,27 @@ export const useFetchSurvey = (variables: FetchSurveyArgs) => {
   const queryClient = useQueryClient()
   const { emailAddress, surveyId } = variables
 
-  const { data: survey = null, isError, isFetching: isFetchSurveyLoading } = useQuery<Survey>(
+  const { data: survey = null, isError: isFetchingError, isFetching: isFetchSurveyLoading } = useQuery<Survey>(
     [surveyCacheKey, emailAddress, surveyId],
     () => runQuery<Survey>(fetchSurveyQuery, variables)
   )
 
-  const { mutate: respondToPost, isLoading: isRespondToSurveyLoading } = useMutation(respondToSurveyRunner, {
-    onSuccess() {
-      queryClient.invalidateQueries('')
+  const { mutateAsync: respondToPost, isLoading: isRespondToSurveyLoading, isError: isRespondError } = useMutation(
+    respondToSurveyRunner,
+    {
+      onSuccess() {
+        queryClient.invalidateQueries('')
+      }
     }
-  })
+  )
 
   return {
     survey,
-    isError,
+    isFetchingError,
     isFetchSurveyLoading,
     isRespondToSurveyLoading,
-    respondToPost
+    respondToPost,
+    isRespondError
   }
 }
 

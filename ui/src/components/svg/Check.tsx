@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 
-const Check: FC<Props> = () => {
+const Check: FC<Props> = ({ width }) => {
   return (
-    <CheckSvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52'>
+    <CheckSvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52' width={width}>
       <circle className='checkmark__circle' cx='26' cy='26' r='25' fill='none' />
       <path className='checkmark__check' fill='none' d='M14.1 27.2l7.1 7.2 16.7-16.8' />
     </CheckSvg>
@@ -58,7 +58,7 @@ const CheckSvg = styled.svg<Props>`
 
   @keyframes fill {
     100% {
-      box-shadow: inset 0px 0px 0px 30px #7ac142;
+      box-shadow: inset 0px 0px 0px #7ac142;
     }
   }
 `

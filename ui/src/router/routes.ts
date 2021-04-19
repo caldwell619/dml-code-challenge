@@ -3,6 +3,7 @@ export enum Routes {
   Home = '/home',
   Surveys = '/surveys',
   CreateSurvey = '/create-survey',
-  RespondToSurvey = '/respond-to-survey'
+  RespondToSurvey = '/respond-to-survey',
+  ResponseConfirmation = '/response-confirmation'
 }
 /* eslint-enable no-unused-vars */
