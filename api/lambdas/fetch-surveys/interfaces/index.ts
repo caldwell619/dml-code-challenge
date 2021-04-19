@@ -1,6 +1,6 @@
 export interface ParsedQueryStringParams {
-  emailAddress?: string
-  surveyId?: string
+  emailAddress: string
+  surveyId: string
 }
 
 export interface Event {
@@ -8,5 +8,5 @@ export interface Event {
   headers: {
     [key: string]: string
   }
-  queryStringParams: Record<string, unknown>
+  queryStringParameters?: ParsedQueryStringParams
 }

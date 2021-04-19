@@ -21,8 +21,13 @@ export const LinkContainer = styled(NavLink)`
   justify-content: center;
   width: 30%;
   @media screen and (min-width: ${mobileBreakpoint}) {
-    width: 20%;
+    width: 15%;
   }
   cursor: pointer;
   color: ${({ theme }) => theme.primaryTextColor};
+`
+
+export const HttpLogo = styled.div`
+  position: absolute;
+  right: 20px;
 `

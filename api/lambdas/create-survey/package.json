@@ -5,11 +5,13 @@
     "refresh-types": "yarn add -D ../../../shared-types"
   },
   "devDependencies": {
+    "@types/uuid": "^8.3.0",
     "aws-sdk": "^2.722.0",
     "shared-types": "../../../shared-types",
     "typescript": "^4.0.3"
   },
   "dependencies": {
-    "@caldwell619/common-aws-actions": "^0.0.10"
+    "@caldwell619/common-aws-actions": "^0.0.10",
+    "uuid": "^8.3.2"
   }
 }

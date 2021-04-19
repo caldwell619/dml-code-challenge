@@ -1,20 +1,22 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState, useContext } from 'react'
 import Fuse from 'fuse.js'
 import { useQuery } from 'react-query'
 import { Survey } from 'shared-types'
 
-import { runQuery } from 'client'
+import { Settings } from 'context/Settings'
+import { runQuery, client } from 'client'
 import { surveyCacheKey } from 'constants/cacheKeys'
 import { useInput } from 'hooks/useInput'
 
 import { fetchSurveysQuery } from './queries'
 
 export const useFetchSurveys = () => {
+  const { isUsingGraphQL } = useContext(Settings)
   const [searchTerm, searchTermBind] = useInput('')
   const [filters, setFilters] = useState<Filters>({ shouldHideAnswered: false, shouldHideNotAnswered: false })
 
   const { data: surveys = [], isError, isFetching: isLoading } = useQuery(surveyCacheKey, () =>
-    runQuery<Survey[]>(fetchSurveysQuery)
+    isUsingGraphQL ? runQuery<Survey[]>(fetchSurveysQuery) : restFetchSurveys()
   )
 
   const SurveySearch = useMemo(
@@ -89,6 +91,11 @@ const handleFiltersWithoutSearch: FilterSurveys = (surveys, { shouldHideAnswered
 const filterOppositeKeyMap: Record<keyof Filters, keyof Filters> = {
   shouldHideAnswered: 'shouldHideNotAnswered',
   shouldHideNotAnswered: 'shouldHideAnswered'
+}
+
+const restFetchSurveys = async (): Promise<Survey[]> => {
+  const { data } = await client.get<Survey[]>('/survey')
+  return data
 }
 
 interface Filters {

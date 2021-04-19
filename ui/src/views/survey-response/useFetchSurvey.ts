@@ -1,19 +1,22 @@
+import { useContext } from 'react'
 import { useQueryClient, useQuery, useMutation, MutateFunction } from 'react-query'
 import { Survey } from 'shared-types'
 
-import { runQuery } from 'client'
+import { runQuery, client } from 'client'
+import { Settings } from 'context/Settings'
 import { surveyCacheKey } from 'constants/cacheKeys'
 
 import { fetchSurveyQuery } from './queries'
 import { answerSurveyMutation } from './mutations'
 
 export const useFetchSurvey = (variables: FetchSurveyArgs) => {
+  const { isUsingGraphQL } = useContext(Settings)
   const queryClient = useQueryClient()
   const { emailAddress, surveyId } = variables
 
   const { data: survey = undefined, isError: isFetchingError, isFetching: isFetchSurveyLoading } = useQuery<Survey>(
     [surveyCacheKey, emailAddress, surveyId],
-    () => runQuery<Survey>(fetchSurveyQuery, variables)
+    () => (isUsingGraphQL ? runQuery<Survey>(fetchSurveyQuery, variables) : restFetchSurvey(variables))
   )
 
   const { mutateAsync: respondToPost, isLoading: isRespondToSurveyLoading, isError: isRespondError } = useMutation(
@@ -42,6 +45,13 @@ interface FetchSurveyArgs {
 
 interface RespondToSurveyArgs extends FetchSurveyArgs {
   answer: string
+}
+
+const restFetchSurvey = async (variables: FetchSurveyArgs) => {
+  const { data } = await client.get<Survey>('/survey', {
+    params: variables
+  })
+  return data
 }
 
 const respondToSurveyRunner: MutateFunction<void, Error, RespondToSurveyArgs> = async variables => {
