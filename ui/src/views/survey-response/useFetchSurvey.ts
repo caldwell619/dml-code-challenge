@@ -13,6 +13,7 @@ export const useFetchSurvey = (variables: FetchSurveyArgs) => {
   const { isUsingGraphQL } = useContext(Settings)
   const queryClient = useQueryClient()
   const { emailAddress, surveyId } = variables
+  variables.emailAddress = decodeURIComponent(emailAddress)
 
   const { data: survey = undefined, isError: isFetchingError, isFetching: isFetchSurveyLoading } = useQuery<Survey>(
     [surveyCacheKey, emailAddress, surveyId],

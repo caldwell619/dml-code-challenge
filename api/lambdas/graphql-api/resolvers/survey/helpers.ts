@@ -12,7 +12,9 @@ export const generateSurveyKey = (surveyId: string): string => `${surveyBaseKey}
 /** Generates and encodes the link to be sent to the User */
 export const generateSurveyLink = (surveyId: string, emailAddress: string, expirationTimestamp?: number) => {
   const timestamp = expirationTimestamp ? `&ttl=${expirationTimestamp}` : ''
-  const rawLink = `${applicationUrl}respond-to-survey?surveyId=${surveyId}&emailAddress=${emailAddress}${timestamp}`
+  const rawLink = `${applicationUrl}respond-to-survey?surveyId=${surveyId}&emailAddress=${encodeURIComponent(
+    emailAddress
+  )}${timestamp}`
   return encodeURI(rawLink)
 }
 
