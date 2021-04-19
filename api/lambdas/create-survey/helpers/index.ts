@@ -18,6 +18,7 @@ export const generateSurveyLink = (surveyId: string, emailAddress: string, expir
 
 export const generateFirstTimeSurvey = (variables: CreateSurveyArgs): Survey => {
   const { emailAddress } = variables
+  validateBody(variables)
   const surveyId = uuid()
   return {
     groupId: emailAddress,
@@ -28,5 +29,16 @@ export const generateFirstTimeSurvey = (variables: CreateSurveyArgs): Survey => 
     link: generateSurveyLink(surveyId, emailAddress),
     id: surveyId,
     ...variables
+  }
+}
+
+const validateBody = (variables: CreateSurveyArgs): void => {
+  const isValidFirstName = typeof variables.firstName === 'string'
+  const isValidLastName = typeof variables.lastName === 'string'
+  const isValidEmail = typeof variables.emailAddress === 'string'
+  const isValidQuestion = typeof variables.question === 'string'
+  const isValidAnswerChoices = variables.answerChoices.every(choice => typeof choice === 'string')
+  if (!isValidFirstName || !isValidLastName || !isValidEmail || !isValidQuestion || !isValidAnswerChoices) {
+    throw new Error('Payload is malformed')
   }
 }

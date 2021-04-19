@@ -20,7 +20,7 @@ export const useFetchSurvey = (variables: FetchSurveyArgs) => {
   )
 
   const { mutateAsync: respondToPost, isLoading: isRespondToSurveyLoading, isError: isRespondError } = useMutation(
-    respondToSurveyRunner,
+    isUsingGraphQL ? respondToSurveyRunner : restSaveResponse,
     {
       onSuccess() {
         queryClient.invalidateQueries('')
@@ -52,6 +52,10 @@ const restFetchSurvey = async (variables: FetchSurveyArgs) => {
     params: variables
   })
   return data
+}
+
+const restSaveResponse: MutateFunction<void, Error, RespondToSurveyArgs> = async (variables: RespondToSurveyArgs) => {
+  await client.put<Survey>('/survey', variables)
 }
 
 const respondToSurveyRunner: MutateFunction<void, Error, RespondToSurveyArgs> = async variables => {
