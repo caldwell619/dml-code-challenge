@@ -19,10 +19,6 @@ provider:
     lambda: true
   environment:
     STAGE: ${env:STAGE}
-    SECRET_ID: ${env:SECRET_ID}
-    MOCK_SIGNING_KEY: ${env:MOCK_SIGNING_KEY}
-    TARGET_SECRET_KEY_PROPERTY: ${env:TARGET_SECRET_KEY_PROPERTY}
-    TOKEN_DURATION: ${env:TOKEN_DURATION}
     TABLE_NAME: ${env:TABLE_NAME}
     PARTITION_KEY_NAME: ${env:PARTITION_KEY}
     RANGE_KEY_NAME: ${env:RANGE_KEY}
@@ -49,8 +45,8 @@ package:
 functions:
   GraphQL:
     handler: lambdas/graphql-api/index.handler
-    name: MainGraphQL-${env:STAGE}
-    description: Main API
+    name: DmlChallengeMainGraphQL-${env:STAGE}
+    description: Main GraphQL API
     role: ReadWriteRole
     environment:
       APPLICATION_URL: ${env:APPLICATION_URL}
@@ -138,36 +134,36 @@ resources:
   Outputs:
     TableName:
       Value: ${env:TABLE_NAME}
-      Description: Name of the Safire DynamoDb table
+      Description: Name of the DmlChallenge DynamoDb table
       Export:
-        Name: SafireTableName-${env:STAGE}
+        Name: DmlChallengeTableName-${env:STAGE}
     PartitionKey:
       Value: ${env:PARTITION_KEY}
-      Description: Partition key of the Safire DynamoDb table
+      Description: Partition key of the DmlChallenge DynamoDb table
       Export:
-        Name: SafirePartitionKey-${env:STAGE}
+        Name: DmlChallengePartitionKey-${env:STAGE}
     RangeKey:
       Value: ${env:RANGE_KEY}
-      Description: Range key of the Safire DynamoDb table
+      Description: Range key of the DmlChallenge DynamoDb table
       Export:
-        Name: SafireRangeKey-${env:STAGE}
+        Name: DmlChallengeRangeKey-${env:STAGE}
     GSI1Name:
       Value: ${env:GSI_1_RANGE_KEY}
-      Description: Name of GSI 1 of the Safire DynamoDb table
+      Description: Name of GSI 1 of the DmlChallenge DynamoDb table
       Export:
-        Name: SafireGSI1Name-${env:STAGE}
+        Name: DmlChallengeGSI1Name-${env:STAGE}
     GSI1PartitionKey:
       Value: ${env:GSI_1_PARTITION_KEY}
-      Description: GSI 1 Partition key of the Safire DynamoDb table
+      Description: GSI 1 Partition key of the DmlChallenge DynamoDb table
       Export:
-        Name: SafireGSI1PartitionKey-${env:STAGE}
+        Name: DmlChallengeGSI1PartitionKey-${env:STAGE}
     GSI1RangeKey:
       Value: ${env:GSI_1_RANGE_KEY}
-      Description: GSI 1 Range key of the Safire DynamoDb table
+      Description: GSI 1 Range key of the DmlChallenge DynamoDb table
       Export:
-        Name: SafireGSI1RangeKey-${env:STAGE}
+        Name: DmlChallengeGSI1RangeKey-${env:STAGE}
     TableArn:
       Value: !GetAtt Db.Arn
-      Description: ARN of the Safire DynamoDb table
+      Description: ARN of the DmlChallenge DynamoDb table
       Export:
-        Name: SafireDbArn-${env:STAGE}
+        Name: DmlChallengeDbArn-${env:STAGE}

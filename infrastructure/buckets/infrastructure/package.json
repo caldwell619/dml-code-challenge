@@ -1,8 +1,0 @@
-{
-  "name": "fire-aurora-rds",
-  "version": "1.0.0",
-  "scripts": {
-    "deploy:dev": ". env/.env.dev && sh scripts/deploy.sh"
-  },
-  "private": true
-}

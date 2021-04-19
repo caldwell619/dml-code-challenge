@@ -1,6 +1,5 @@
 {
-  "name": "jobs-ecr",
-  "version": "1.0.0",
+  "name": "ui-infra",
   "private": true,
   "scripts": {
     "deploy:dev": ". env/.env.dev && sh scripts/deploy.sh"
