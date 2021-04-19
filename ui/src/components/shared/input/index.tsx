@@ -5,7 +5,15 @@ import { UseInputBind } from 'hooks/useInput'
 import { Container, Input as InputElement, InputContainer, IconContainer, HelperText } from './elements'
 import { FlexContainer } from '..'
 
-export const Input: FC<Props> = ({ inputBind = {}, Icon, placeholder, inputRef, helperText, onFocus = () => {} }) => {
+export const Input: FC<Props> = ({
+  inputBind = {},
+  Icon,
+  placeholder,
+  inputRef,
+  helperText,
+  onFocus = () => {},
+  onIconClick = () => {}
+}) => {
   const [isFocused, setIsFocused] = useState(false)
   const handleOnFocus = () => {
     setIsFocused(true)
@@ -15,7 +23,7 @@ export const Input: FC<Props> = ({ inputBind = {}, Icon, placeholder, inputRef, 
     <FlexContainer width='100%' direction='column'>
       <Container isError={helperText?.isError} isFocused={isFocused}>
         {Icon ? (
-          <IconContainer>
+          <IconContainer isClickable={!!onIconClick} onClick={onIconClick}>
             <Icon isFocused={isFocused} />
           </IconContainer>
         ) : null}
@@ -41,7 +49,8 @@ interface Props {
   }
   inputBind?: UseInputBind | {}
   placeholder?: string
-  Icon?: FunctionComponent<{ isFocused: boolean }>
+  Icon?: FunctionComponent<{ isFocused?: boolean } | undefined>
   inputRef?: MutableRefObject<HTMLInputElement | null>
   onFocus?: () => void
+  onIconClick?: () => void
 }

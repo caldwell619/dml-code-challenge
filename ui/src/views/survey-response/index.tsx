@@ -1,8 +1,8 @@
-import { FC, useState } from 'react'
+import { FC, useState, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import { parse } from 'query-string'
 
-import { Layout, MobileActionButton, PageLoading } from 'components/shared'
+import { Layout, MobileActionButton, PageLoading, LoadingSpinner } from 'components/shared'
 
 import { useFetchSurvey } from './useFetchSurvey'
 import { CenteredContainer } from 'views/surveys/elements'
@@ -14,8 +14,17 @@ const RespondToSurvey: FC = () => {
   const { location } = useHistory()
   const { emailAddress, surveyId } = parse(location.search) as ExpectedQueryStringParams
   if (!emailAddress || !surveyId) throw new Error('nope')
-  const { survey, isLoading } = useFetchSurvey({ emailAddress, surveyId })
-  if (isLoading) {
+  const { survey, isFetchSurveyLoading, respondToPost, isRespondToSurveyLoading } = useFetchSurvey({
+    emailAddress,
+    surveyId
+  })
+
+  const handleAnswerSurvey = useCallback(
+    async () => respondToPost({ answer: selectedAnswer, emailAddress, surveyId }),
+    [selectedAnswer, emailAddress, surveyId, respondToPost]
+  )
+
+  if (isFetchSurveyLoading) {
     return (
       <CenteredContainer>
         <PageLoading />
@@ -34,7 +43,9 @@ const RespondToSurvey: FC = () => {
           <span onClick={() => setSelectedAnswer(choice)}>{choice}</span>
         </AnswerOption>
       ))}
-      <MobileActionButton disabled={selectedAnswer === ''}>Submit</MobileActionButton>
+      <MobileActionButton onClick={handleAnswerSurvey} disabled={selectedAnswer === ''}>
+        {isRespondToSurveyLoading ? <LoadingSpinner /> : 'Submit'}
+      </MobileActionButton>
     </Layout>
   )
 }

@@ -7,6 +7,8 @@ export interface CreateSurveyArgs {
   firstName: string
   lastName: string
   emailAddress: string
+  question: string
+  answerChoices: string[]
 }
 
 export interface SaveSurveyResponseArgs {

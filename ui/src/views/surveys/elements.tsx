@@ -8,11 +8,20 @@ export const CenteredContainer = styled(FlexContainer)`
   flex-direction: column;
 `
 
+export const FilterContainer = styled(FlexContainer)`
+  justify-content: flex-start;
+  margin: 5% 0;
+  & > div {
+    margin-right: 5%;
+  }
+`
+
 export const Table = styled.table`
   width: 100%;
+  margin-top: 5%;
   th,
   td {
-    padding: 12px;
+    padding: 2%;
   }
 
   @media screen and (max-width: 600px) {
@@ -20,25 +29,21 @@ export const Table = styled.table`
       display: none;
     }
 
-    tr {
-      &:last-child {
-        margin-bottom: 100px;
-        color: red !important;
-      }
-    }
-
     td {
       display: flex;
+      & div {
+        width: 60%;
+      }
     }
 
     td::before {
       content: attr(aria-label);
-      width: 40%;
+      width: 30%;
     }
   }
 `
 
 export const SearchContainer = styled.div`
-  position: sticky;
-  top: 53px;
+  padding: 2% 2% 0 2%;
+  background-color: ${({ theme }) => theme.primaryBackgroundColor};
 `

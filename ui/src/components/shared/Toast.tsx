@@ -1,7 +1,7 @@
 import { FC, useEffect, Dispatch, SetStateAction } from 'react'
 import styled from 'styled-components'
 
-const Toast: FC<Props> = ({ children, isShown, setIsShown }) => {
+export const Toast: FC<Props> = ({ children, isShown, setIsShown }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIsShown(false)
@@ -33,5 +33,3 @@ const Container = styled.div<ContainerProps>`
   background-color: ${({ theme }) => theme.brandColor};
   right: ${({ isShown }) => (isShown ? '12px' : '-1000px')};
 `
-
-export default Toast

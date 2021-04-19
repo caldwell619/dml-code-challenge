@@ -22,8 +22,12 @@ export const Container = styled(FlexContainer)<SearchContainerProps>`
   background-color: ${({ theme }) => theme.primaryBackgroundColor};
 `
 
-export const IconContainer = styled(FlexContainer)`
+interface IconContainerProps {
+  isClickable?: boolean
+}
+export const IconContainer = styled(FlexContainer)<IconContainerProps>`
   width: 10%;
+  ${({ isClickable }) => (isClickable ? 'cursor: pointer; & * { cursor: pointer; }' : '')}
 `
 
 interface InputContainerProps {

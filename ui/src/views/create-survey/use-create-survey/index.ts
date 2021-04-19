@@ -26,6 +26,8 @@ interface CreateSurveyVariables {
   firstName: string
   lastName: string
   emailAddress: string
+  question: string
+  answerChoices: string[]
 }
 const createSurveyRunner = async (variables: CreateSurveyVariables): Promise<void> => {
   await runQuery(createSurveyMutation, variables)

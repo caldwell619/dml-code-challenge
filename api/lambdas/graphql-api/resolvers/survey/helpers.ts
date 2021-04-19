@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid'
 import { applicationUrl } from '@/graphql-api/constants'
 
 import { CreateSurveyArgs } from './interfaces'
-import { surveyBaseKey, surveyAnswerOptions, surveyAnswerQuestion } from './constants'
+import { surveyBaseKey } from './constants'
 
 /** Used for centralized consistency for generating lookup / storage keys */
 export const generateSurveyKey = (surveyId: string): string => `${surveyBaseKey}_${surveyId}`
@@ -27,8 +27,6 @@ export const generateFirstTimeSurvey = (variables: CreateSurveyArgs): Survey => 
     lastUpdated: Date.now(),
     link: generateSurveyLink(surveyId, emailAddress),
     id: surveyId,
-    answerChoices: surveyAnswerOptions,
-    question: surveyAnswerQuestion,
     ...variables
   }
 }
