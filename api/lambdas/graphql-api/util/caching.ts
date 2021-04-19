@@ -1,7 +1,7 @@
 import NodeCache from 'node-cache'
 
 export const Cache = new NodeCache({
-  stdTTL: 300, // 5m
+  stdTTL: 120, // 2m
   useClones: false
 })
 
