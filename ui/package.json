@@ -60,6 +60,7 @@
     "prettier": "^2.2.1",
     "react-scripts": "4.0.3",
     "shared-types": "../shared-types/",
+    "source-map-explorer": "^2.5.2",
     "typescript": "^4.1.5"
   }
 }
