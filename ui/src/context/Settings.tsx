@@ -2,14 +2,14 @@ import { FC, createContext, useState, useMemo, useCallback } from 'react'
 
 const keyOfLocalStoragePreference = 'isUsingGraphQL'
 const isUsingGraphQLInitial = JSON.parse(localStorage.getItem(keyOfLocalStoragePreference) || 'null')
-
+console.log(isUsingGraphQLInitial)
 export const Settings = createContext<ISettingsContext>({
   isUsingGraphQL: isUsingGraphQLInitial?.isUsingGraphQLArgument as boolean,
   setIsUsingGraphQL: () => {}
 })
 
 export const SettingsProvider: FC = ({ children }) => {
-  const [isUsingGraphQL, setIsUsingGraphQL] = useState(isUsingGraphQLInitial)
+  const [isUsingGraphQL, setIsUsingGraphQL] = useState(isUsingGraphQLInitial?.isUsingGraphQLArgument)
 
   const handleChange = useCallback(
     (isUsingGraphQLArgument: boolean) => {

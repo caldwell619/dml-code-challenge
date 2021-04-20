@@ -29,7 +29,7 @@ const RespondToSurvey: FC = () => {
   /** Sends the mutation to answer the survey */
   const handleAnswerSurvey = async () => {
     try {
-      await respondToPost({ answer: selectedAnswer, emailAddress, surveyId })
+      await respondToPost({ answer: selectedAnswer, emailAddress: decodeURIComponent(emailAddress), surveyId })
     } catch (error) {
       // empty on purpose, `isRespondError` will have the proper value to determine what the result will be.
     } finally {

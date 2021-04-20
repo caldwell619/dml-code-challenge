@@ -6,5 +6,5 @@ export const gsiPartitionKeyName = process.env.GSI_1_PARTITION_KEY_NAME
 export const gsiRangeKeyName = process.env.GSI_1_RANGE_KEY_NAME
 
 export const stage = process.env.STAGE as string
-
+export const applicationUrl = process.env.APPLICATION_URL
 export const surveyBaseKey = '#SURVEY'
